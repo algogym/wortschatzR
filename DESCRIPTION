@@ -1,0 +1,13 @@
+Package: wortschatzR
+Type: Package
+Title: Retrieve frequency data from Leipzig Wortschatz
+Version: 0.1.0
+Author: Tim Graf
+Maintainer: Tim Graf <tim.graf@uni-koeln.de>
+Description: Package can be used to automatically retrieve frequency data from Leipzig Wortschatz using a list of words. The code was partially adapted from valentin wagner (2016-07-13).
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Imports:
+    httr
