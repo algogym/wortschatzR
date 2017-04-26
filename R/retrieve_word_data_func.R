@@ -10,7 +10,7 @@
 #' @examples
 #' my_wordlist <- c("Hund", "Faultier", "Kruoz")
 #' my_word_data <- retrieve_word_data(my_wordlist)
-#' my_wort_data
+#' my_word_data
 retrieve_word_data <- function(wordlist, corpus="deu_news_2012", as_dataframe = TRUE){
     if(corpus == "deu_news_2012"){
         url_le <- "http://wortschatzwebservices.informatik.uni-leipzig.de/ws/words/deu_news_2012_1M/word/"

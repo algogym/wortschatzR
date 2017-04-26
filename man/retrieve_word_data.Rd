@@ -22,5 +22,5 @@ Retrieve frequency data from Leipzig Wortschatz
 \examples{
 my_wordlist <- c("Hund", "Faultier", "Kruoz")
 my_word_data <- retrieve_word_data(my_wordlist)
-my_wort_data
+my_word_data
 }
