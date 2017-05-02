@@ -1,6 +1,6 @@
 #' Retrieve frequency data from Leipzig Wortschatz
 #'
-#' @param wordlist A character vector containing the words, for which the data is requested
+#' @param wordlist A character vector containing the words, for which the data is requested. Other types will be coerced into characters.
 #' @param corpus Name of the corpus to be used. At the moment only "deu_news_2012" possible
 #' @param as_dataframe logical; if True (default) a data.frame is returned, else a list
 #'
@@ -12,6 +12,7 @@
 #' my_word_data <- retrieve_word_data(my_wordlist)
 #' my_word_data
 retrieve_word_data <- function(wordlist, corpus="deu_news_2012", as_dataframe = TRUE){
+    wordlist <- as.character(wordlist)
     if(corpus == "deu_news_2012"){
         url_le <- "http://wortschatzwebservices.informatik.uni-leipzig.de/ws/words/deu_news_2012_1M/word/"
     }

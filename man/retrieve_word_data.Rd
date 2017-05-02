@@ -7,7 +7,7 @@
 retrieve_word_data(wordlist, corpus = "deu_news_2012", as_dataframe = TRUE)
 }
 \arguments{
-\item{wordlist}{A character vector containing the words, for which the data is requested}
+\item{wordlist}{A character vector containing the words, for which the data is requested. Other types will be coerced into characters.}
 
 \item{corpus}{Name of the corpus to be used. At the moment only "deu_news_2012" possible}
 
