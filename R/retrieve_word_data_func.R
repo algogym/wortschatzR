@@ -18,7 +18,7 @@ retrieve_word_data <- function(wordlist, corpus="deu_news_2012", as_dataframe = 
     }
     word_data_list <- vector(mode="list", length = length(wordlist))
     for (ii in 1:length(wordlist)){
-        http_le <- paste(url_le, wordlist[[ii]], sep="")
+        http_le <- paste(url_le, wordlist[ii], sep="")
         retrieved_data <- httr::content(httr::GET(http_le, httr::add_headers("Accept: application/json")))
         if (length(retrieved_data)==2){
             word_data_list[[ii]] = list(id = NA,word = wordlist[[ii]],freq = NA, wordRank = NA,frequencyClass = NA)
@@ -33,7 +33,5 @@ retrieve_word_data <- function(wordlist, corpus="deu_news_2012", as_dataframe = 
     }
 
 }
-
-
 
 
