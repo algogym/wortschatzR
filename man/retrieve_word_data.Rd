@@ -4,17 +4,15 @@
 \alias{retrieve_word_data}
 \title{Retrieve frequency data from Leipzig Wortschatz}
 \usage{
-retrieve_word_data(wordlist, corpus = "deu_news_2012", as_dataframe = TRUE)
+retrieve_word_data(wordlist, corpus = "deu_news_2012")
 }
 \arguments{
 \item{wordlist}{A character vector containing the words, for which the data is requested. Other types will be coerced into characters.}
 
 \item{corpus}{Name of the corpus to be used. At the moment only "deu_news_2012" possible}
-
-\item{as_dataframe}{logical; if True (default) a data.frame is returned, else a list}
 }
 \value{
-Either data.frame or list with the requested frequency data
+data.frame with the requested frequency data
 }
 \description{
 Retrieve frequency data from Leipzig Wortschatz
