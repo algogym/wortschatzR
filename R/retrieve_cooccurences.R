@@ -13,22 +13,27 @@
 #' my_word_data
 retrieve_left_cooccurences <- function(wordlist, limit=20,  corpus="deu_news_2012"){
     wordlist <- as.character(wordlist)
-    if(limit == 2){
-        stop("Chosen limit leads to problematic behavior. Please choose larger than 2. This will be fixed in future versions")}
+
     if(corpus == "deu_news_2012"){
         url_le <- "http://api.corpora.uni-leipzig.de/ws/cooccurrences/deu_news_2012_1M/leftcooccurrences/"
     }
+    missing_word_data <- FALSE
     word_data_df <- data.frame(NULL)
     for (ii in 1:length(wordlist)){
         http_le_b <- paste(url_le, wordlist[ii], sep="")
         http_le <- paste(http_le_b, limit, sep="?limit=")
-        retrieved_data <- httr::content(httr::GET(http_le, httr::add_headers("Accept: application/json")))
-        if(length(retrieved_data)==2){
-            word_data_df <- rbind(word_data_df, data.frame(w1.id = NA, w1.word = wordlist[ii], w1.freq = NA, w2.id = NA, w2.word = NA, w2.freq = NA, freq = NA, sig = NA))
-
+        retrieved_data <- try(jsonlite::fromJSON(http_le, flatten = TRUE), silent = TRUE)
+        if(class(retrieved_data) != "try-error"){
+            word_data_df <- rbind(word_data_df, as.data.frame(retrieved_data))
         }else{
-             word_data_df <- rbind(word_data_df, do.call(rbind, lapply( retrieved_data, unlist)))
+            word_data_df <- rbind(word_data_df, data.frame(w1.id = NA, w1.word = wordlist[ii], w1.freq = NA, w2.id = NA, w2.word = NA, w2.freq = NA, freq = NA, sig = NA))
+            missing_word_data <- TRUE
         }
+
+    }
+
+    if(missing_word_data == TRUE){
+        warning("One or more words did not have cooccurence data available in the chosen corpus")
     }
     word_data_df
 }
@@ -49,22 +54,27 @@ retrieve_left_cooccurences <- function(wordlist, limit=20,  corpus="deu_news_201
 #' my_word_data
 retrieve_right_cooccurences <- function(wordlist, limit=20,  corpus="deu_news_2012"){
     wordlist <- as.character(wordlist)
-    if(limit == 2){
-        stop("Chosen limit leads to problematic behavior. Please choose larger than 2. This will be fixed in future versions")}
+
     if(corpus == "deu_news_2012"){
         url_le <- "http://api.corpora.uni-leipzig.de/ws/cooccurrences/deu_news_2012_1M/rightcooccurrences/"
     }
+    missing_word_data <- FALSE
     word_data_df <- data.frame(NULL)
     for (ii in 1:length(wordlist)){
         http_le_b <- paste(url_le, wordlist[ii], sep="")
         http_le <- paste(http_le_b, limit, sep="?limit=")
-        retrieved_data <- httr::content(httr::GET(http_le, httr::add_headers("Accept: application/json")))
-        if(length(retrieved_data)==2){
-            word_data_df <- rbind(word_data_df, data.frame(w1.id = NA, w1.word = wordlist[ii], w1.freq = NA, w2.id = NA, w2.word = NA, w2.freq = NA, freq = NA, sig = NA))
-
+        retrieved_data <- try(jsonlite::fromJSON(http_le, flatten = TRUE), silent = TRUE)
+        if(class(retrieved_data) != "try-error"){
+            word_data_df <- rbind(word_data_df, as.data.frame(retrieved_data))
         }else{
-            word_data_df <- rbind(word_data_df, do.call(rbind, lapply( retrieved_data, unlist)))
+            word_data_df <- rbind(word_data_df, data.frame(w1.id = NA, w1.word = wordlist[ii], w1.freq = NA, w2.id = NA, w2.word = NA, w2.freq = NA, freq = NA, sig = NA))
+            missing_word_data <- TRUE
         }
+
+    }
+
+    if(missing_word_data == TRUE){
+        warning("One or more words did not have cooccurence data available in the chosen corpus")
     }
     word_data_df
 }
