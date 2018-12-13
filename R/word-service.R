@@ -22,6 +22,24 @@ word <- function(word, corpus = "deu_news_2012_1M", ...){
     assertthat::assert_that(all(is.character(word)),
                             msg = "word must be a string or a vector of strings")
     word_list <- glue::glue("http://api.corpora.uni-leipzig.de/ws/words/{corpus}/word/{word}")
-    purrr::map_dfr(word_list, catch_error_json, ...)
+    purrr::map_dfr(word_list, query_word, ...)
 }
+
+query_word <- function(url, ...){
+    q_res <- catch_error_json(url)
+    word_string <- stringr::str_extract(url, "\\w+$")
+    if (is.null(q_res$error)) {
+        return(q_res$result)
+    } else {
+        return(
+            list(id = NA,
+                 word = word_string,
+                 freq = NA,
+                 wordRank = NA,
+                 frequencyClass = NA)
+        )
+    }
+}
+
+
 
