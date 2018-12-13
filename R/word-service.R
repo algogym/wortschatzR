@@ -24,7 +24,7 @@ word <- function(word, corpus = "deu_news_2012_1M", ...){
     word_list <- glue::glue("http://api.corpora.uni-leipzig.de/ws/words/{corpus}/word/{word}")
     purrr::map_dfr(word_list, query_word, ...)
 }
-
+# TODO Add documentation for this function
 query_word <- function(url, ...){
     q_res <- catch_error_json(url)
     word_string <- stringr::str_extract(url, "\\w+$")
