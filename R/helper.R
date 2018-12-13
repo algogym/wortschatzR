@@ -10,6 +10,6 @@
 catch_error_json <- function(txt, quietly = TRUE){
     safe_json <- purrr::safely(jsonlite::fromJSON)
     query_result <- safe_json(txt)
-        if (!quietly & !is.null(query_result$error)) warning(glue::glue("There is no record of the word {word_string}"))
-    return(query_results)
+        if (!quietly & !is.null(query_result$error)) warning("An error occured during the query. Most likely the api request did not yield a result (404)")
+    return(query_result)
     }
