@@ -24,7 +24,18 @@ word <- function(word, corpus = "deu_news_2012_1M", ...){
     word_list <- glue::glue("http://api.corpora.uni-leipzig.de/ws/words/{corpus}/word/{word}")
     purrr::map_dfr(word_list, query_word, ...)
 }
-# TODO Add documentation for this function
+
+#' Wrapper around catch_error_json to create the right output for querys with errors
+#'
+#' This function takes the result of the error catching json function as returns either results
+#' if the request was successful or a list with the same dimensions as a successful request but with NAs
+#'
+#' @param url URL for the API request
+#' @param ... Additional arguments passed to catch_error_json. For now quietly = FALSE enables the display of warnings,
+#'  whenever a word has not entry in the corpus
+#'
+#' @return A list with the query results or a list with NAs
+
 query_word <- function(url, ...){
     q_res <- catch_error_json(url)
     word_string <- stringr::str_extract(url, "\\w+$")
@@ -68,4 +79,34 @@ randomword <- function(n, corpus = "deu_news_2012_1M",force = FALSE){
               glue::glue("http://api.corpora.uni-leipzig.de/ws/words/{corpus}/randomword/?limit={n}")
               )
           )
+}
+
+
+prefixword <- function(prefix, max_num=10, min_freq=2, corpus = "deu_news_2012_1M", force = FALSE){
+
+  assertthat::assert_that(assertthat::is.count(min_freq))
+  assertthat::assert_that(assertthat::is.count(max_num))
+  assertthat::assert_that(assertthat::is.flag(force))
+  if (max_num > 1000 & force == FALSE) stop("Your request exceeds the imho reasonable size of 1000.
+                                        Use force = TRUE to do it anyway at your own risk")
+  if (any(stringr::str_length(prefix) < 4)) warning("All prefixes must be at least 4 characters long. Expect some NAs")
+
+  word_list <- glue::glue("http://api.corpora.uni-leipzig.de/ws/words/{corpus}/prefixword/{prefix}?minFreq={min_freq}&limit={max_num}")
+
+  purrr::map_dfr(word_list, query_prefix)
+}
+
+query_prefix <- function(url){
+  q_res <- catch_error_json(url)
+  word_string <- stringr::str_extract(url, "\\w+(?=\\?minFreq)")
+  if (is.null(q_res$error) & length(q_res$result > 0)) {
+    return(dplyr::bind_cols(query = rep(word_string, nrow(q_res$result)), q_res$result))
+  } else {
+    return(
+      list(query = word_string,
+           id = NA_integer_,
+           word = NA_character_,
+           freq = NA_integer_)
+    )
+  }
 }
