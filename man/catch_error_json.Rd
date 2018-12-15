@@ -12,7 +12,7 @@ catch_error_json(txt, quietly = TRUE)
 \item{quietly}{If FALSE, a warning message is returned, whenever an error is encountered. Default: TRUE}
 }
 \value{
-A list with the query results or a list with NAs for each variable that was requested
+A list with the query results and the potential error message
 }
 \description{
 Helper function which catches (404) errors, when requesting a JSON from a remote source
