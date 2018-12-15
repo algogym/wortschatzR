@@ -42,4 +42,15 @@ query_word <- function(url, ...){
 }
 
 
+randomword <- function(n, corpus = "deu_news_2012_1M",force = FALSE){
+    assertthat::assert_that(assertthat::is.count(n))
+    assertthat::assert_that(assertthat::is.flag(force))
+    if (n > 1000 & force == FALSE) stop("Your request exceeds the reasonable size of 1000.
+                                        Use force = TRUE to do it anyway at your own risk")
 
+      tibble::as_tibble(
+          jsonlite::fromJSON(
+              glue::glue("http://api.corpora.uni-leipzig.de/ws/words/{corpus}/randomword/?limit={n}")
+              )
+          )
+}
