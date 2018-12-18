@@ -82,6 +82,23 @@ randomword <- function(n, corpus = "deu_news_2012_1M",force = FALSE){
 }
 
 
+#' Query words starting with a specific letter combination
+#'
+#' lists words with a specific prefix with a minimum length of 4 characters.
+#' Can be used for autocompletion functionality or similar.
+#'
+#' @param prefix A string or vector of strings containing the prefixes, for which words should be queried.
+#' The prefixes must be at least 4 letters long.
+#' @param max_num integer. Maximal number of retrieved words. Should be between 1 and 1000.
+#' @param min_freq interger. Minimum frequency of retrieved words. Default is 2.
+#' @param corpus string. Name of the corpus to query. Default is the German deu_news_2012_1M
+#' @param force logical. Set to TRUE, if you want to query more than 1000 words
+#'
+#' @return A tibble with words starting with the prefix and their Frequency.
+#' @export
+#'
+#' @examples
+#' prefixword("fort")
 prefixword <- function(prefix, max_num=10, min_freq=2, corpus = "deu_news_2012_1M", force = FALSE){
 
   assertthat::assert_that(assertthat::is.count(min_freq))
@@ -95,6 +112,15 @@ prefixword <- function(prefix, max_num=10, min_freq=2, corpus = "deu_news_2012_1
 
   purrr::map_dfr(word_list, query_prefix)
 }
+
+#' Wrapper around catch_error_json to create the right output for querys with errors
+#'
+#' This function is used when querying prefixes and takes the result of the error catching json function as returns either results
+#' if the request was successful or a list with the same dimensions as a successful request but with NAs
+#' @param url URL for the API request
+#'
+#' @return list with the query results or a list with NAs
+
 
 query_prefix <- function(url){
   q_res <- catch_error_json(url)
