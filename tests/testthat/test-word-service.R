@@ -32,4 +32,11 @@ test_that("prefixword stops, on certain conditions",{
     expect_error(prefixword("fort", force=1), info = "non logical force argument")
 })
 
+test_that("all functions stop, if an invalid corpus is selected",
+          {
+              expect_error(prefixword("fort", corpus = "fantasy_corpus"))
+              expect_error(word("fort", corpus = "fantasy_corpus"))
+              expect_error(randomword("fort", corpus = "fantasy_corpus"))
+
+          })
 
