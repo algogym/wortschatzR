@@ -31,7 +31,7 @@ list_available_corpora <- function(name_only = FALSE){
     if (name_only == TRUE){
         dplyr::pull(available_corpora, "corpusName")
     } else {
-        available_corpora
+        tibble::as.tibble(available_corpora)
     }
 
 }
