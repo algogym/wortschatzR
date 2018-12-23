@@ -1,4 +1,4 @@
-# This file contains the functions for the word serviceof the the Leipzig
+# This file contains the functions for the word service of the the Leipzig
 # Corpora Collection
 # Function names correspond to the API names
 # The German corpus will be used as a Default
