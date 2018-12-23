@@ -26,3 +26,10 @@ test_that("randomwords hat the correct dimensions", {
            failure_message = "randomword output has not the expected no of rows")
 })
 
+test_that("prefixword stops, on certain conditions",{
+    expect_error(prefixword("fort", min_freq = -2), info = "invalid min_freq")
+    expect_error(prefixword("fort", max_num=0), info = "invalid max_num")
+    expect_error(prefixword("fort", force=1), info = "non logical force argument")
+})
+
+
