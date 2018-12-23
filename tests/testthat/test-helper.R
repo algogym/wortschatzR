@@ -26,3 +26,14 @@ test_that("check that query word sets the right NAs",
               )$frequencyClass), "frequencyClass is not NA")
           }
           )
+
+test_that("the format of the available corpora is right",
+          {
+           testthat::expect_is(list_available_corpora(), "tbl_df")
+           testthat::expect_is(list_available_corpora(TRUE), "character")
+          })
+
+test_that("available corpora throws the right errors",
+          {
+             testthat::expect_error(list_available_corpora(1))
+          })
