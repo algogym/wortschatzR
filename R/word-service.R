@@ -19,6 +19,9 @@
 #'
 word <- function(word, corpus = "deu_news_2012_1M", ...){
 
+    assertthat::assert_that((corpus %in% list_available_corpora(TRUE)),
+                            msg = "No valid corpus name provived.
+                            Use list_available_corpora() to see the complete list of possible corpora.")
     assertthat::assert_that(all(is.character(word)),
                             msg = "word must be a string or a vector of strings")
     word_list <- glue::glue("http://api.corpora.uni-leipzig.de/ws/words/{corpus}/word/{word}")
@@ -69,6 +72,10 @@ query_word <- function(url, ...){
 #' randomword(5)
 #'
 randomword <- function(n, corpus = "deu_news_2012_1M",force = FALSE){
+    assertthat::assert_that((corpus %in% list_available_corpora(TRUE)),
+                            msg = "No valid corpus name provived.
+                                  Use list_available_corpora() to see the complete list of possible corpora.")
+
     assertthat::assert_that(assertthat::is.count(n))
     assertthat::assert_that(assertthat::is.flag(force))
     if (n > 1000 & force == FALSE) stop("Your request exceeds the imho reasonable size of 1000.
@@ -100,6 +107,9 @@ randomword <- function(n, corpus = "deu_news_2012_1M",force = FALSE){
 #' @examples
 #' prefixword("fort")
 prefixword <- function(prefix, max_num=10, min_freq=2, corpus = "deu_news_2012_1M", force = FALSE){
+  assertthat::assert_that((corpus %in% list_available_corpora(TRUE)),
+                          msg = "No valid corpus name provived.
+                                Use list_available_corpora() to see the complete list of possible corpora.")
 
   assertthat::assert_that(assertthat::is.count(min_freq))
   assertthat::assert_that(assertthat::is.count(max_num))
