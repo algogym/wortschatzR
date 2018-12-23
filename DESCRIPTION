@@ -1,10 +1,10 @@
 Package: wortschatzR
 Type: Package
 Title: Wrappers around the REST API from the Leipzig Corpora Collection
-Version: 0.2.2
+Version: 0.2.2.9000
 Author: Tim Graf
-Maintainer: Tim Graf <tim@tim-graf.de>
-Description: Package can be used to automatically retrieve frequency data from Leipzig Wortschatz using a list of words. The code was partially adapted from valentin wagner (2016-07-13).
+Maintainer: Tim Graf <tim.graf@gmail.com>
+Description: This package provides wrappers around the REST API from the Leipzig Corpora Collection (http://wortschatz.uni-leipzig.de/de). As of now not all API features are implemented.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
