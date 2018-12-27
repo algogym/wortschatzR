@@ -1,7 +1,7 @@
 Package: wortschatzR
 Type: Package
 Title: Wrappers Around the REST API from the Leipzig Corpora Collection
-Version: 0.0.0.9010
+Version: 0.0.0.9020
 Author: Tim Graf
 Maintainer: Tim Graf <tim.graf@gmail.com>
 Description: Wrappers around the REST API from the Leipzig Corpora Collection (<http://wortschatz.uni-leipzig.de/de>) for R are provided by this package. 
@@ -18,7 +18,8 @@ Imports:
     purrr,
     assertthat,
     stringr,
-    dplyr
+    dplyr,
+    rlang
 Depends: 
     R (>= 3.1)
 Suggests: 
